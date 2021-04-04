@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Core.Interface;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -28,7 +29,7 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddScoped<IServiceRepo, ServiceRepo>();
             services.AddControllers();
             services.AddDbContext<ShopContext>(x => x.UseSqlite(_configuration.GetConnectionString("DefaultConnection")));
             services.AddSwaggerGen(c =>

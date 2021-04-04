@@ -1,3 +1,4 @@
+using System.Reflection;
 using Core.Entity;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,5 +11,14 @@ namespace Infrastructure.Data
         }
 
         public DbSet<Service> Services { get; set;}
+        public DbSet<ServiceType> ServiceTypes { get; set; }
+
+
+        //adding custon configurations builder for service entity 
+        protected override void OnModelCreating(ModelBuilder model)
+        {
+            base.OnModelCreating(model);
+            model.ApplyConfigurationsFromAssembly(Assembly.GetEntryAssembly());
+        }
     }
 }
