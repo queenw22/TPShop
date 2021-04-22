@@ -15,6 +15,32 @@ namespace Infrastructure.Data
         {
             try
             {
+                if(!context.CommTypes.Any())
+               {
+                   var commTypesData = File.ReadAllText("../Infrastructure/Data/SeedData/commTypes.json");
+                   var commTypes = JsonSerializer.Deserialize<List<CommType>>(commTypesData);
+
+                   foreach(var item in commTypes)
+                   {
+                       context.CommTypes.Add(item);
+                   }
+
+                   await context.SaveChangesAsync();
+               }
+
+               if(!context.DesignOptions.Any())
+               {
+                   var designOptionsData = File.ReadAllText("../Infrastructure/Data/SeedData/designOptions.json");
+                   var designOptions = JsonSerializer.Deserialize<List<DesignOption>>(designOptionsData);
+
+                   foreach(var item in designOptions)
+                   {
+                       context.DesignOptions.Add(item);
+                   }
+
+                   await context.SaveChangesAsync();
+               }
+
                 if(!context.ServiceTypes.Any())
                {
                    var serviceTypesData = File.ReadAllText("../Infrastructure/Data/SeedData/serviceTypes.json");

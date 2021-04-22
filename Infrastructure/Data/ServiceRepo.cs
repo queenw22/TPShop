@@ -18,6 +18,8 @@ namespace Infrastructure.Data
         {
             return await _context.Services
             .Include(s => s.ServiceType)
+            .Include(s => s.CommType)
+            .Include(s => s.DesignOptions)
             .FirstOrDefaultAsync(s => s.Id == id); //do the same as findasync(id)
         }
 
@@ -25,12 +27,24 @@ namespace Infrastructure.Data
         {
             return await _context.Services
                      .Include(s => s.ServiceType)
+                     .Include(s => s.CommType)
+                     .Include(s => s.DesignOptions)
                      .ToListAsync();
         }
 
         public async Task<IReadOnlyList<ServiceType>> GetServiceTypesAsync()
         {
             return await _context.ServiceTypes.ToListAsync();
+        }
+
+        public async Task<IReadOnlyList<CommType>> GetCommTypesAsync()
+        {
+            return await _context.CommTypes.ToListAsync();
+        }
+
+        public async Task<IReadOnlyList<DesignOption>> GetDesignOptionsAsync()
+        {
+            return await _context.DesignOptions.ToListAsync();
         }
     }
 }

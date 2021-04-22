@@ -12,6 +12,8 @@ namespace Infrastructure.Data
 
         public DbSet<Service> Services { get; set;}
         public DbSet<ServiceType> ServiceTypes { get; set; }
+        public DbSet<CommType> CommTypes { get; set; }
+        public DbSet<DesignOption> DesignOptions { get; set; }
 
 
         //adding custon configurations builder for service entity 

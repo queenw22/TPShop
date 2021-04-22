@@ -3,18 +3,48 @@ using System;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Infrastructure.Data.Migrations
+namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    partial class ShopContextModelSnapshot : ModelSnapshot
+    [Migration("20210413033906_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "5.0.3");
+
+            modelBuilder.Entity("Core.Entity.CommType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CommTypes");
+                });
+
+            modelBuilder.Entity("Core.Entity.DesignOption", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DesignOptions");
+                });
 
             modelBuilder.Entity("Core.Entity.Service", b =>
                 {
@@ -25,13 +55,13 @@ namespace Infrastructure.Data.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("Community")
+                    b.Property<int>("CommTypeId")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("DateOfService")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("Design")
+                    b.Property<int>("DesignOptionsId")
                         .HasColumnType("INTEGER");
 
                     b.Property<bool?>("FacePainter")
@@ -60,6 +90,10 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CommTypeId");
+
+                    b.HasIndex("DesignOptionsId");
+
                     b.HasIndex("ServiceTypeId");
 
                     b.ToTable("Services");
@@ -81,11 +115,27 @@ namespace Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Core.Entity.Service", b =>
                 {
+                    b.HasOne("Core.Entity.CommType", "CommType")
+                        .WithMany()
+                        .HasForeignKey("CommTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Entity.DesignOption", "DesignOptions")
+                        .WithMany()
+                        .HasForeignKey("DesignOptionsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Core.Entity.ServiceType", "ServiceType")
                         .WithMany()
                         .HasForeignKey("ServiceTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("CommType");
+
+                    b.Navigation("DesignOptions");
 
                     b.Navigation("ServiceType");
                 });

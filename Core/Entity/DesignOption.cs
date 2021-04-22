@@ -1,6 +1,6 @@
 namespace Core.Entity
 {
-    public class CommType : BaseEntity
+    public class DesignOption : BaseEntity
     {
         public string Name { get; set; }
     }

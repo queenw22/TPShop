@@ -6,12 +6,14 @@
       "ServiceTypeId": 1,
       "DateOfService": "2018-08-26T12:58:34.860",
       "Time": "2018-08-26T12:58:34.860",
-      "Community": 1,
-      "Design": 1,
+      "CommTypeId" : 1,
+      "DesignOptionsId": 1,
       "Address": "555 bat ave",
       "FacePainter": true,
       "Theme": "blue",
       "RushOrder": true,
       "Price": 180
     }
+
+
   ]

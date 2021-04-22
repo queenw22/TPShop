@@ -10,5 +10,9 @@ namespace Core.Interface
 
         Task<IReadOnlyList<Service>> GetServicesAsync();
         Task<IReadOnlyList<ServiceType>> GetServiceTypesAsync();
+        Task<IReadOnlyList<CommType>> GetCommTypesAsync();
+        Task<IReadOnlyList<DesignOption>> GetDesignOptionsAsync();
+
+
     }
 }
